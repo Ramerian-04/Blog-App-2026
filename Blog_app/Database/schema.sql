@@ -9,11 +9,11 @@ CREATE TABLE users(
 );
 
 CREATE TABLE blogposts(
-    blog_id INT PRIMARY_KEY AUTO_INCREMENT,
+    blog_id INT PRIMARY KEY AUTO_INCREMENT,
     auth_id VARCHAR(50) NOT NULL,
     title VARCHAR(200) NOT NULL,
-    description TEXT NO NULL,
-    created_at at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    description TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(auth_id) REFERENCES users(user_id)
     ON DELETE CASCADE
 )

@@ -1,7 +1,9 @@
 #importing the database connection
-from db.connection import DatabaseConnection
+from DB.connection import DatabaseConnection
+
+
 class BlogRepository:
-    def create_post(self,user_id,title,decription):
+    def create_post(self,user_id,title,description):
         connection=None
         cursor=None
         try:
@@ -10,9 +12,8 @@ class BlogRepository:
             cursor.execute(
             '''
             INSERT INTO blogposts(auth_id,title,description,created_at)
-            VALUES(%s,%s,%s,NOW()),
+            VALUES(%s,%s,%s,NOW())''',
             (user_id,title,description)
-            '''
             )
             connection.commit()
         finally:
@@ -31,10 +32,10 @@ class BlogRepository:
             SELECT b.blog_id,CONCAT(u.first_name,' ',u.last_name) AS author_name,
                 b.title,
                 b.description,
-                b.created_At
+                b.created_at
             FROM blogposts b
             INNER JOIN users u on b.auth_id=u.user_id
-            ORDER BY b.created_At DESC
+            ORDER BY b.created_at DESC
             '''
             )
             return cursor.fetchall()
@@ -56,8 +57,8 @@ class BlogRepository:
                 UPDATE blogposts
                 SET Title =%s,description=%s
                 WHERE blog_id=%s AND auth_id=%s
+                ''',
                 (title,description,blog_id,user_id)
-                '''
             )
             connection.commit()
             return cursor.rowcount>0
@@ -78,7 +79,7 @@ class BlogRepository:
                 '''
                 DELETE FROM blogposts
                 WHERE blog_id=%s AND auth_id=%s
-                '''
+                ''',
                 (blog_id,user_id)
             )
             connection.commit()
@@ -86,5 +87,5 @@ class BlogRepository:
         finally:
             if cursor:
                 cursor.close()
-            if connection and connection.is_connection.is_connected():
+            if connection and connection.is_connected():
                 connection.close()

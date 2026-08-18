@@ -1,9 +1,10 @@
 import mysql.connector
-from config.settings import DB_CONFIG
+from Config.settings import DB_CONFIG
+
 
 class DatabaseConnection:
     '''
-    Responsible only for e creating MySQL connections
+    Responsible only for creating MySQL connections
     '''
 
     @staticmethod

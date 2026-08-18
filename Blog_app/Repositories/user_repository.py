@@ -1,4 +1,5 @@
-from db.connection import DatabaseConnection
+from DB.connection import DatabaseConnection
+
 
 class UserRepository:
     def user_exists(self,user_id):
@@ -8,7 +9,7 @@ class UserRepository:
             connection=DatabaseConnection.get_connection()
             cursor=connection.cursor()
             cursor.execute(
-                "SELECT user_id FROM users WHERE user_id=%s",
+                "SELECT user_id FROM users WHERE user_id=%s;",
                 (user_id,)
             )
             return cursor.fetchone() is not None
@@ -25,8 +26,8 @@ class UserRepository:
             connection=DatabaseConnection.get_connection()
             cursor=connection.cursor()
             query='''
-            INSERT INTO users(user_id,password,first_name,last_name)
-            VALUES(%s,%s,%s,%s)
+            INSERT INTO users(user_id, password, first_name, last_name)
+            VALUES(%s,%s,%s,%s);
             '''
             cursor.execute(query,(user.user_id,user.password,user.first_name,user.last_name))
             connection.commit()
@@ -45,14 +46,14 @@ class UserRepository:
             cursor=connection.cursor(dictionary=True)
             cursor.execute(
                 '''
-                SELECT user_id,password,first_nam,last_name
+                SELECT user_id, password, first_name, last_name
                 FROM users 
-                WHERE user_id=%s AND password=%s 
-                '''
+                WHERE user_id=%s AND password=%s
+                ''',
                 (user_id,password)
 
             )
-            return cursor.fetchone
+            return cursor.fetchone()
         finally:
             if cursor:
                 cursor.close()

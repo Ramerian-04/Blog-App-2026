@@ -5,7 +5,7 @@ class User:
         self.first_name=first_name
         self.last_name=last_name
 
-        @property
-        def full_name(self):
+    @property
+    def full_name(self):
             return f"{self.first_name} {self.last_name}"
         

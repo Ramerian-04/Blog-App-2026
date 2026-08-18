@@ -1,4 +1,5 @@
-from models.user import User
+from Models.user import User
+
 
 class AuthService:
     def __init__(self,user_repository):
